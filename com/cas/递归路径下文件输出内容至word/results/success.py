@@ -11,19 +11,19 @@ from docx import Document
 document = Document()
 document.add_heading('源代码', 0)
 basedir = '/Users/xianglong/IdeaProjects/rabbitmq-service-backend'
+endwith = 'java'
 
 def print_files(path):
     global document
     # print(basedir)
     # 第一步过滤，拿到所有的文件夹
     lsdir = os.listdir(path)
-
     dirs = [i for i in lsdir if os.path.isdir(os.path.join(
         path, i))]
     if dirs:
         for i in dirs:
             print_files(os.path.join(path, i))
-    files = [i for i in lsdir if os.path.isfile(os.path.join(path,i)) and os.path.join(path,i).endswith("java")]
+    files = [i for i in lsdir if os.path.isfile(os.path.join(path,i)) and os.path.join(path,i).endswith(endwith)]
     for f in files:
         print (os.path.join(path, f))
         fo = open(os.path.join(path, f), "r+")
