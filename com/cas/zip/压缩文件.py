@@ -10,6 +10,6 @@ def zip_files(files, zip_name):
     print('compressing finished')
 
 
-files = ['.\\123.txt', '.\\3.txt']  # 文件的位置，多个文件用“，”隔开
-zip_file = '.\\m66y.zip'  # 压缩包名字
+files = ['.\\123.txt', '.\\3.txt']
+zip_file = '.\\m66y.zip'
 zip_files(files, zip_file)
