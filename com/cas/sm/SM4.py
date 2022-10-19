@@ -1,8 +1,9 @@
 from gmssl.sm4 import CryptSM4, SM4_ENCRYPT, SM4_DECRYPT
 import base64
+import subprocess
+
 
 class SM4Utils:
-
 
     def __init__(self, ):
         pass
@@ -12,7 +13,7 @@ class SM4Utils:
         # 创建 SM4对象
         crypt_sm4 = CryptSM4()
         # 定义key值
-        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff785')
+        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff700')
         # print("key: ", secret_key)
 
         # 设置key
@@ -32,7 +33,7 @@ class SM4Utils:
 
     def decryptData_ECB(self, cipher_text):
         crypt_sm4 = CryptSM4()
-        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff785')
+        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff700')
         crypt_sm4.set_key(secret_key, SM4_DECRYPT)
         # 将转入参数base64.b64decode解码成十六进制的bytes类型
         byt_cipher_text = base64.b64decode(cipher_text)
@@ -41,11 +42,29 @@ class SM4Utils:
         return decrypt_value.decode('utf-8', 'ignore')
 
 
+# 实现拷贝
+def copy(text):
+    p = subprocess.Popen(["pbcopy", "w"], stdin=subprocess.PIPE, close_fds=True)
+    # 将内容(text)拷贝起来
+    p.communicate(input=text.encode("utf-8"))
+
+
+# 实现粘贴
+def paste():
+    p = subprocess.Popen(["pbpaste", "r"], stdout=subprocess.PIPE, close_fds=True)
+    stdout, stderr = p.communicate()
+    # 返回粘贴内容
+    return stdout.decode("utf-8")
+
+
 if __name__ == '__main__':
     SM4_Utils = SM4Utils()
     print("规则：长度11加密，非11解密")
     date = input("输入数据[明文/密文]：")
-    if (len(date) == 11):
-        print(SM4_Utils.encryptData_ECB(date.encode("utf-8")))
-    else :
+    if len(date) == 11:
+        ecb = SM4_Utils.encryptData_ECB(date.encode("utf-8"))
+        copy(ecb)
+        print(ecb)
+        print('已自动复制至粘贴板')
+    else:
         print(SM4_Utils.decryptData_ECB(date.encode("utf-8")))

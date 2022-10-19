@@ -14,7 +14,7 @@ class SM4Utils:
         # 创建 SM4对象
         crypt_sm4 = CryptSM4()
         # 定义key值
-        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff700')
+        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff785')
         # print("key: ", secret_key)
 
         # 设置key
@@ -34,7 +34,7 @@ class SM4Utils:
 
     def decryptData_ECB(self, cipher_text):
         crypt_sm4 = CryptSM4()
-        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff700')
+        secret_key = bytes().fromhex('0e00bca58b4b9243e0550dd9d22ff785')
         crypt_sm4.set_key(secret_key, SM4_DECRYPT)
         # 将转入参数base64.b64decode解码成十六进制的bytes类型
         byt_cipher_text = base64.b64decode(cipher_text)
